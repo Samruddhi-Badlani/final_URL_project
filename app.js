@@ -42,7 +42,7 @@ app.get('/', function (req, res) {
 
 app.post('/example', (req, res) => {
 
-  client.query("INSERT INTO url_status(url_name,status) VALUES('" + req.body.add_url + "','closing')", (err, result) => {
+  client.query("INSERT INTO url_status(url_name,status,name) VALUES('" + req.body.add_url + "','closing','"+ req.body.add_url_name +"')", (err, result) => {
     if (err) {
       console.log("Error");
       console.log(err)
@@ -60,7 +60,7 @@ app.post('/example', (req, res) => {
     else if (response.statusCode == 200) {
       console.log("running");
           let my_html_response = JSON.stringify(response);
-          let flag = my_html_response.includes("Copyright");
+          let flag = my_html_response.includes("Copyright") || my_html_response.includes("copyright");
           if (flag) {
             client.query("UPDATE url_status SET status='running' WHERE url_name=$1", [req.body.add_url] , (err, temp) => {
               if (err)
@@ -151,7 +151,7 @@ app.get('/status', (req, res) => {
         else if (response.statusCode == 200) {
           console.log("running");
           let my_html_response = JSON.stringify(response);
-          let flag = my_html_response.includes("Copyright");
+          let flag = my_html_response.includes("Copyright") || my_html_response.includes("copyright");
           if (flag) {
             client.query("UPDATE url_status SET status='running' WHERE url_name=$1", [res1.rows[x]['url_name']], (err, temp) => {
               if (err)
@@ -203,9 +203,9 @@ app.get('/status', (req, res) => {
 app.post('/edit', (req, res) => {
 
   console.log(req.body.edited_url_id);
-  const values = [req.body.edited_url, req.body.edited_url_id]
+  const values = [req.body.edited_url, req.body.edited_url_name,req.body.edited_url_id];
   console.log(req.body.edited_url);
-  client.query("UPDATE url_status SET url_name=$1,status='closing' WHERE id=$2", values, (err, result1) => {
+  client.query("UPDATE url_status SET url_name=$1,status='closing',name=$2 WHERE id=$3", values, (err, result1) => {
     console.log("hello");
     if (err) {
       console.log(err);
@@ -214,7 +214,7 @@ app.post('/edit', (req, res) => {
   request.get(req.body.edited_url, function (error, response, body) {
     if (error || response === null) {
       console.log("Closing");
-      client.query("UPDATE url_status SET status='closing' WHERE url_name=$1", [req.body.edited_url], (err, temp) => {
+      client.query("UPDATE url_status SET status='closing' WHERE url_name=$1",[req.body.edited_url], (err, temp) => {
         if (err)
           console.log(err);
       });

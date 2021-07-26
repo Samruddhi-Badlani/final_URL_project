@@ -33,7 +33,8 @@
     <div class="main">
         <div id="content">
         <form action="http://localhost:3000/example" method="POST" id="my_form">
-            <input type="text"  id="task" placeholder="Add a URL here" class="g1" autocomplete="false" name="add_url">
+            <input type="text"  id="task2" placeholder="Add a URL Company  here" class="g1" autocomplete="false" name="add_url_name" required>
+            <input type="text"  id="task" placeholder="Add a URL Address here" class="g1" autocomplete="false" name="add_url" required>
             <input type="submit" class="g1" id="add" value="ADD">
         </form>
         

@@ -104,6 +104,13 @@ header{
     border: 1px solid whitesmoke;
     margin: 10px;
 }
+.url-name-box{
+    padding: 10px;
+    box-shadow: 2px 2px 2px 2px black;
+    width: 130px;
+    border: 1px solid whitesmoke;
+    margin: 10px;
+}
 
 #myProgress {
     width: 40%;
