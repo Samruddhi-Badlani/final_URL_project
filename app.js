@@ -28,10 +28,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: false }));
 //Server 
 my_initial_list = null;
+
 app.get('/', function (req, res) {
 
   client.query('SELECT * FROM url_status', (err, result) => {
-    res.render('index', { urls: result.rows });
+    var progress_bar = null;
+    res.render('index', { urls: result.rows , pg_vis : progress_bar});
+    
 
   })
 
@@ -121,6 +124,8 @@ app.get('/status', (req, res) => {
   //      client.end();
   //    })
   //  })
+ 
+  
   client.query("SELECT * FROM url_status").then((res1) => {
 
 
@@ -172,7 +177,7 @@ app.get('/status', (req, res) => {
               console.log("Error");
               console.log(err)
             }
-            res.render('index', { urls: result.rows });
+            res.render('index', { urls: result.rows,pg_vis : "true" });
             console.log(result.rows);
 
           });

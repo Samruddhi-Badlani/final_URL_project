@@ -1,4 +1,20 @@
 {>"layot" /}
+{<section} 
+
+<div id="myProgress" class="g1">
+    <div id="myBar"></div>
+{@select key=pg_vis}
+{@eq value="false"}
+<div id="myProgress" class="g1">
+    <div id="myBar"></div>{/eq}
+    {@eq value="true"}
+    <script>
+        alert("Execution completed")
+    </script>{/eq} 
+    {/select}
+</div>
+
+{/section}
 
 {<div} {#urls} <div class="my_url">
     <form action="http://localhost:3000/edit" method="POST">

@@ -104,5 +104,18 @@ header{
     border: 1px solid whitesmoke;
     margin: 10px;
 }
+
+#myProgress {
+    width: 40%;
+    display: none;
+    
+  }
+  
+  #myBar {
+    width: 1%;
+    display: none;
+    height: 20px;
+    background-color: green;
+  }
 /* //on.innerHTML = '<i class="fa fa-close" style="font-size:48px;color:red"></i>'; RED CROSS/
 /* delete_button.innerText = "\u2705" green mark; */

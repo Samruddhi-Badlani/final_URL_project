@@ -37,9 +37,13 @@
             <input type="submit" class="g1" id="add" value="ADD">
         </form>
         
-     <form action="http://localhost:3000/status" method="GET">
-        <button  type="submit" class="g1" id="status">CHECK STATUS</button>
-     </form>
+     <form action="http://localhost:3000/status" method="GET" >
+        <button  type="submit" class="g1" id="status" onclick="add_bar()">CHECK STATUS</button>
+    </form>
+    {+section /}
+    
+</section>
+   
      
     </div>
     <div id="my-web-urls">
