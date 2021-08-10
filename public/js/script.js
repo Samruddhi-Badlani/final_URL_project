@@ -1,6 +1,10 @@
 function add_bar(){
     console.log("add progress bar on frontend")
     let statuses = document.getElementsByClassName('status-box');
+    let my_headers_of_result = document.getElementsByClassName('my-headers');
+    for(var i=0;i<my_headers_of_result.length;i++){
+      my_headers_of_result[i].style.visibility = "hidden";
+    }
     console.log(statuses)
     for(elem of statuses){
         console.log(elem)

@@ -16,46 +16,59 @@
     <title>URL Loading Checker</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@600&display=swap');
-    
     </style>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;1,700&display=swap');
-        </style>
-    
-   
-  
+    </style>
+
+
+
 </head>
 
 <body>
     <header>
-        <h3>URL Loading Checker</h3>
+        <img id="logo" src="/images/promotion.png">
+        <h3 id="my-app-name">ApplicationUptime</h3>
     </header>
     <div class="main">
         <div id="content">
-        <form action="http://localhost:3000/example" method="POST" id="my_form">
-            <input type="text"  id="task2" placeholder="Add a URL Company  here" class="g1" autocomplete="false" name="add_url_name" required>
-            <input type="text"  id="task" placeholder="Add a URL Address here" class="g1" autocomplete="false" name="add_url" required>
-            <input type="submit" class="g1" id="add" value="ADD">
-        </form>
-        
-     <form action="http://localhost:3000/status" method="GET" >
-        <button  type="submit" class="g1" id="status" onclick="add_bar()">CHECK STATUS</button>
-    </form>
-    {+section /}
-    
-</section>
-   
-     
-    </div>
-    <div id="my-web-urls">
-       {+div /}
-        <!-- <div id="my-head-row" class="my_url">
+            <form action="http://localhost:3000/example" method="POST" id="my_form">
+
+                <input type="text" id="task2" placeholder="Name" class="g1" autocomplete="false" name="add_url_name"
+                    required>
+
+                <input type="text" id="task" placeholder="URL" class="g1" autocomplete="false" name="add_url" required>
+                <input type="submit" class="g1" id="add" value="ADD">
+            </form>
+
+            <form action="http://localhost:3000/status" method="GET">
+                <button type="submit" class="g1" id="status" onclick="add_bar()">CHECK STATUS</button>
+            </form>
+            {+section /}
+
+            </section>
+
+
+        </div>
+        <div id="combined">
+            <div id="my-web-urls">
+                <div id="my-table-heads">
+                    <div class="my-heads" id="head-name">Name</div>
+                    <div class="my-heads" id="head-url">URL address</div>
+                </div>
+                {+div /}
+                <!-- <div id="my-head-row" class="my_url">
             <div class="url_name">URL Name</div>
             <div class="url_name">Operation</div>
             <div class="url_name status_box">Status</div>
         </div> -->
-    </div>
-    <script src="/js/script.js"></script>
+            </div>
+            <div id="Result">
+                {+header /} 
+            </div>
+        </div>
+        <script src="/js/script.js"></script>
+        {+footer /}
 </body>
 
 </html>

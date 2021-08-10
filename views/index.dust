@@ -1,59 +1,363 @@
 {>"layot" /}
-{<section} 
-
-<div id="myProgress" class="g1">
+{<section} <div id="myProgress" class="g1">
     <div id="myBar"></div>
-{@select key=pg_vis}
-{@eq value="false"}
-<div id="myProgress" class="g1">
-    <div id="myBar"></div>{/eq}
-    {@eq value="true"}
-    <script>
-        alert("Execution completed")
-    </script>{/eq} 
-    {/select}
-</div>
-
-{/section}
-
-{<div} {#urls} <div class="my_url">
-    <form action="http://localhost:3000/edit" method="POST">
-        <div id={id} >
-            <input name="edited_url_id" type="number" value="{id}" style="display: none;">
-            <input class="url-name-box" name="edited_url_name" type="text" value="{name}">
-            <input class="url-box"  name="edited_url" type="text" value="{url_name}">
-        <button type="submit" class="edit-button"><i  class="fa fa-pencil-square-o url_name" aria-hidden="true" style="font-size:28px"></i></button>
+    {@select key=pg_vis}
+    {@eq value="false"}
+    <div id="myProgress" class="g1">
+        <div id="myBar"></div>{/eq}
+        {@eq value="true"}
+        <script>
+            alert("Execution completed")
+        </script>{/eq}
+        {/select}
     </div>
-    </form>
+
+    {/section}
     
-    {@select key=status }
-    {@eq value="running"}<div ><span class="glyphicon glyphicon-ok status-box"
-            style="font-size:24px;color:green "></span></i></div>{/eq}
-    {@eq value="closing"}<div class="status-box" ><i class="fa fa-close " style="font-size:24px;color:red"></i></div>
 
-    {/eq}
-    {@eq value="dont"}<div class="status-box"><i class="fa fa-square" style="font-size:24px;color:red"></i></div>{/eq}
-    {@default}<div class="status-box"><i class="fa fa-square"></i></div>{/default}
-    {/select}
+    {<div} {#urls} <div class="my_url">
+        <form action="http://localhost:3000/edit" method="POST">
+            <div id={id}>
+                <input name="edited_url_id" type="number" value="{id}" style="display: none;">
+                <input name="edited_url_id_run" type="number" value="{my_run_id}" style="display: none;">
+                <input class="url-name-box" name="edited_url_name" type="text" value="{name}">
+                <input class="url-box" name="edited_url" type="text" value="{url_name}">
+                <button type="submit" class="edit-button"><i class="fa fa-pencil-square-o url_name" aria-hidden="true"
+                        style="font-size:28px"></i></button>
+            </div>
+        </form>
+
+        <!-- {@select key=status }
+        {@eq value="running"}<div><span class="glyphicon glyphicon-ok status-box"
+                style="font-size:24px;color:green "></span></i></div>{/eq}
+        {@eq value="closing"}<div class="status-box"><i class="fa fa-close " style="font-size:24px;color:red"></i></div>
+
+        {/eq}
+        {@eq value="dont"}<div class="status-box"><i class="fa fa-square" style="font-size:24px;color:red"></i></div>
+        {/eq}
+        {@default}<div class="status-box"><i class="fa fa-square"></i></div>{/default}
+        {/select} -->
 
 
 
-    <form action="http://localhost:3000/del" method="POST" id="my_form">
-        <input type="number" id="task" placeholder="Add a URL here" name="url_delete" style="display: none;"
-            value="{id}">
-        <button type="submit" id="del" class="del-btn"><i class="fa fa-trash" aria-hidden="true" style="font-size:24px"></i></button>
-    </form>
-    <!-- <div class="del_btn" action=""><i class="fa fa-trash" aria-hidden="true" style="font-size:28px"></i></div> -->
+        <form action="http://localhost:3000/del" method="POST" id="my_form">
+            <input type="number" id="task" placeholder="Add a URL here" name="url_delete" style="display: none;"
+                value="{id}">
+            <input type="text" id="name-del" placeholder="Add a URL here" name="url_delete_name" style="display: none;"
+                value="{url_name}">
+            <button type="submit" id="del" class="del-btn"><i class="fa fa-trash" aria-hidden="true"
+                    style="font-size:24px"></i></button>
+        </form>
+        <!-- <div class="del_btn" action=""><i class="fa fa-trash" aria-hidden="true" style="font-size:28px"></i></div> -->
 
-    <!-- <input type="number"  id="task" placeholder="Add a URL here"  name="url_edit" style="display: none;" value="{id}"> -->
-    <!-- <form class="edit-button" action="http://localhost:3000/edit" method="POST" >
+        <!-- <input type="number"  id="task" placeholder="Add a URL here"  name="url_edit" style="display: none;" value="{id}"> -->
+        <!-- <form class="edit-button" action="http://localhost:3000/edit" method="POST" >
         <input type="number" name="url_id"  style="display:  none;">
         <div ><button type="submit"><i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:24px"></i></button></div>
        
     </form> -->
 
-    </div>
-    {/urls}
-    {/div}
-    <!-- /* //on.innerHTML = '<i class="fa fa-close" style="font-size:48px;color:red"></i>'; RED CROSS/
+        </div>
+        {/urls}
+        {/div}
+
+        {<header} {@select key=result_vis} {@eq value="false" } <div id="my-result" style="display: flex;">
+            </div>{/eq}
+            {@eq value="true"}
+            <div id="my-result">
+                <!-- <p>HELOO WORLD</p> -->
+                <div id="result-heads">
+                    <div style="display: flex;flex-direction:row">
+                        <div class="my-headers">Status</div>
+                        <div class="my-headers">Copyright Confirmation</div>
+                    </div>
+
+
+
+                    {#urls}
+                    <div style="display: flex;flex-direction:row">
+                        <div class="my_url" id="res-status">
+
+                            {@select key=status }
+                            {@eq value="running"}<div><span class="glyphicon glyphicon-ok status-box"
+                                    style="font-size:24px;color:green "></span></i></div><br>{/eq}
+                            {@eq value="closing"}<div class="status-box"><i class="fa fa-close "
+                                    style="font-size:24px;color:red"></i></div><br>
+
+                            {/eq}
+                            {@eq value="dont"}<div class="status-box"><i class="fa fa-square"
+                                    style="font-size:24px;color:red"></i></div><br>{/eq}
+                            {@default}<div class="status-box"><i class="fa fa-square"></i></div><br>{/default}
+                            {/select}
+
+
+
+                        </div>
+                        <div class="my_url" id="res-status">
+
+                            {@select key=copyrightstatus }
+                            {@eq value="running"}<div><span class="glyphicon glyphicon-ok status-box"
+                                    style="font-size:24px;color:green "></span></i></div><br>{/eq}
+                            {@eq value="closing"}<div class="status-box"><i class="fa fa-close "
+                                    style="font-size:24px;color:red"></i></div><br>
+
+                            {/eq}
+                            {@eq value="dont"}<div class="status-box"><i class="fa fa-square"
+                                    style="font-size:24px;color:red"></i></div><br>{/eq}
+                            {@default}<div class="status-box"><i class="fa fa-square"></i></div><br>{/default}
+                            {/select}
+
+
+
+                        </div>
+                    </div>
+
+                    {/urls}
+
+
+                </div>
+
+
+
+            </div>{/eq}
+            {/select}
+
+            {/header}
+
+            {<footer} 
+            {@select key=result_vis} {@eq value="false" } <div id="my-result" style="display: flex;">
+            </div>{/eq}
+            {@eq value="true"}<div class="myChartBox"><canvas class="mychart">
+
+                </canvas>
+                </div>
+                
+                {#urls}
+                <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.0/dist/chart.min.js"></script>
+              
+                  
+                   <script>
+                       var x =2;
+                       var my_data_final =[];
+                       var my_data_failure = [];
+                       var my_name_final = [];
+                   </script>
+                   {#urls}
+                   <script>
+                    my_data_final.push({success});
+                my_name_final.push('{name}');
+                    my_data_failure.push({failure});
+                    
+                    
+                </script>
+                {/urls}
+                    <script>
+
+                    var ctx = document.getElementsByClassName('mychart')[0].getContext('2d');
+                    console.log(ctx);
+                   
+
+                    
+
+                    
+                    
+                    
+                    
+                    var mixedChart = new Chart(ctx, {
+                        data: {
+                            datasets: [{
+                                type: 'bar',
+                                label: 'Running',
+                                data: my_data_final,
+                                backgroundColor: [
+                                    'rgba(0, 230, 64, 1)',
+                                    
+                                ],
+                                
+                            }, {
+                                type: 'bar',
+                                label: 'Closing',
+                                data: my_data_failure,
+                                backgroundColor: [
+                                ' rgb(255,0,0)',
+                                ],
+                                
+                                
+                          
+                               
+                            }],
+                            labels: my_name_final
+                        },
+                        options: {
+                            maintainAspectRatio:false,
+                            scales: {
+                                yAxes: [{
+                                  ticks: {
+                                    reverse: false,
+                                    stepSize: 20
+                                  },
+                                }]
+                              }
+                            
+                        }
+
+                    });
+                </script>
+
+                {/urls}
+                {/eq}
+                {/select}
+                {@select key=result_vis} {@eq value="false" } <div id="my-result2" style="display: flex;">
+                </div>{/eq}
+                {@eq value="true"}<div class="myChartBox2" ><canvas class="mychart2">
+    
+                    </canvas>
+                    </div>
+                    
+                    
+                   
+                    
+                    <script>
+                        console.log("runs data fetched finally");
+                        var run1_data = [];
+                        var run2_data = [];
+                        var run3_data = [];
+                        var run4_data = [];
+                        var run5_data = [];
+                    </script>
+                    {#last} 
+                    <script>
+                        run1_data.push({a});
+                        run2_data.push({b});
+                        run3_data.push({c});
+                        run4_data.push({d});
+                        run5_data.push({e});
+                    </script>
+                    
+                    {/last}
+                    <script>
+                        console.log(run1_data);
+                    </script>
+                    {#urls}
+
+              
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.0/dist/chart.min.js"></script>
+                  
+                    
+                       <script>
+                       
+                           var x =2;
+                           var my_data_final =[];
+                           var my_data_failure = [];
+                           var my_name_final = [];
+                       </script>
+                       {#urls}
+                       <script>
+                           
+                        my_data_final.push({success});
+                    my_name_final.push('{name}');
+                        my_data_failure.push({failure});
+                      
+                        
+                    </script>
+                    {/urls}
+                        <script>
+    
+                        var ctx = document.getElementsByClassName('mychart2')[0].getContext('2d');
+                        console.log(ctx);
+                       
+    
+                        
+    
+                        
+                        
+                        
+                        
+                        var mixedChart = new Chart(ctx, {
+                            data: {
+                                datasets: [{
+                                    type: 'bar',
+                                     label : "Run1 ",
+                                     backgroundColor:"#99B898",
+                                    data: run1_data,
+                                   
+                                    
+                                }, {
+                                    type: 'bar',
+                                    label : "Run2 ",
+                                    backgroundColor:"#FECEA8",
+                                  
+                                    data: run2_data,
+                                   
+                                    
+                              
+                                   
+                                },
+                                {
+                                    type: 'bar',
+                                    label : "Run3",
+                                    backgroundColor:"#FF847C",
+                                  
+                                    data: run3_data,
+                                    
+                                    
+                                    
+                              
+                                   
+                                },
+                                {
+                                    type: 'bar',
+                                    label : "Run4 ",
+                                    backgroundColor:"#E84A5F",
+                                    data: run4_data,
+                                  
+                                    
+                                    
+                              
+                                   
+                                },
+                                {
+                                    type: 'bar',
+                                    label : "Run5 ",
+                                    backgroundColor:"#2A363B",
+                                   
+                                    data: run5_data,
+                                   
+                                    
+                                    
+                              
+                                   
+                                }
+                                ],
+                                labels: my_name_final
+                            },
+                            options: {
+                                maintainAspectRatio:false,
+                                scales: {
+                                    yAxes: [{
+                                        
+                                    }],
+                                    xAxes: [{
+                                        ticks: {
+                                            display:false
+                                       
+                                        },
+                                      }]
+
+                                  },
+                                  scaleShowLabels: false,
+                                
+                            }
+    
+                        });
+                    </script>
+    
+                    {/urls}
+                    {/eq}
+                    {/select}
+                
+                 
+             
+                {/footer}
+                <!-- /* //on.innerHTML = '<i class="fa fa-close" style="font-size:48px;color:red"></i>'; RED CROSS/
 /* delete_button.innerText = "\u2705" green mark; */ -->
