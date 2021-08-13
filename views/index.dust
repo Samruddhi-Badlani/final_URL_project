@@ -167,7 +167,7 @@
                         data: {
                             datasets: [{
                                 type: 'bar',
-                                label: 'Running',
+                                label: 'Success',
                                 data: my_data_final,
                                 backgroundColor: [
                                     'rgba(0, 230, 64, 1)',
@@ -176,7 +176,7 @@
                                 
                             }, {
                                 type: 'bar',
-                                label: 'Closing',
+                                label: 'Failure',
                                 data: my_data_failure,
                                 backgroundColor: [
                                 ' rgb(255,0,0)',
